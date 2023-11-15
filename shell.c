@@ -7,7 +7,7 @@
  * Retur`n: Command execution on success, error on failure.
  */
 
-int main()
+int main(void)
 {
 	char *token;
 	ssize_t reading;
@@ -17,11 +17,11 @@ int main()
 	int i, status;
 	pid_t process;
 
-	while(1)
+	while (1)
 	{
 		printf("$ ");
 		reading = getline(&buffer, &len, stdin);
-		
+
 		if (reading == -1)
 		{
 			perror("Error: Getline failed");
@@ -31,7 +31,7 @@ int main()
 
 		token = strtok(buffer,  " ");
 		i = 0;
-		for (;token != NULL;i++)
+		for (; token != NULL; i++)
 		{
 			array[i] = token;
 			token = strtok(NULL, " ");
@@ -40,13 +40,14 @@ int main()
 
 		process = fork();
 		if (process == -1)
-                {
-                        perror("Error: Fork failed!");
+		{
+			perror("Error: Fork failed!");
 			exit(EXIT_FAILURE);
-                }
+		}
 		else if (process == 0)
 		{
-			char *envp[] = {NULL}; 
+			char *envp[] = {NULL};
+
 			execve(array[0], array, envp);
 			perror("Error: command does not exist");
 			exit(EXIT_FAILURE);
