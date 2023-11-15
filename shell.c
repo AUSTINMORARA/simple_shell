@@ -11,7 +11,7 @@ int main(void)
 {
 	char *token;
 	ssize_t reading;
-	char *array[MAX];
+	char **array;
 	char *buffer = NULL;
 	size_t len;
 	int i, status;
@@ -29,15 +29,7 @@ int main(void)
 		if (buffer[reading - 1] == '\n')
 			buffer[reading - 1] = '\0';
 
-		token = strtok(buffer,  " ");
-		i = 0;
-		for (; token != NULL; i++)
-		{
-			array[i] = token;
-			token = strtok(NULL, " ");
-		}
-		array[i] = NULL;
-
+		array = tokenise(buffer);
 		process = fork();
 		if (process == -1)
 		{
