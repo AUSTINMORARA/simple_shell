@@ -1,5 +1,6 @@
 #ifndef MAIN_H
 #define MAIN_H
+#define PATH "/bin:"
 
 #include <stdio.h>
 #include <sys/types.h>

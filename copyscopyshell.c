@@ -14,7 +14,7 @@ int main()
 	char *array[MAX];
 	char *buffer = NULL;
 	size_t len;
-	int i = 0, ex,status;
+	int i, status;
 	pid_t process;
 
 	while(1)
@@ -30,6 +30,7 @@ int main()
 			buffer[reading - 1] = '\0';
 
 		token = strtok(buffer,  " ");
+		i = 0;
 		for (;token != NULL;i++)
 		{
 			array[i] = token;
@@ -45,8 +46,8 @@ int main()
                 }
 		else if (process == 0)
 		{
-			char *envp[] = {"PATH=~/alx_projects/simple_shell", "USER=austin" ,NULL}; 
-			ex = execve(array[0], array, envp);
+			char *envp[] = {NULL}; 
+			execve(array[0], array, envp);
 			perror("Error: command does not exist");
 			exit(EXIT_FAILURE);
 		}
